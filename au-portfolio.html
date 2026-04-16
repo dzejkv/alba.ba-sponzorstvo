@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Albert Ugrincic — GLORY Rotterdam 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8A84B;
+    --gold-light: #E8C96A;
+    --gold-dark: #8A6A1A;
+    --red: #C0392B;
+    --red-bright: #E74C3C;
+    --black: #080808;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #242424;
+    --light: #CCCCCC;
+    --white: #F5F5F0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); backdrop-filter: blur(2px); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 4px; color: var(--gold); }
+  .nav-event { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; color: var(--red-bright); text-transform: uppercase; }
+
+  
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; background: var(--black); }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(192,57,43,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 30% 60%, rgba(200,168,75,0.10) 0%, transparent 55%), linear-gradient(160deg, #0d0d0d 0%, #080808 100%); }
+  .hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(200,168,75,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,168,75,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 3;
+}
+  .hero-diagonal { position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: linear-gradient(135deg, transparent 0%, rgba(192,57,43,0.06) 50%, rgba(200,168,75,0.04) 100%); clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%); }
+  .hero-accent-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--gold), var(--red), transparent);
+  z-index: 4;
+}
+  .hero-content { position: relative; z-index: 20; padding: 0 60px 80px; max-width: 900px; }
+  .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+  .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 2px; background: var(--gold); }
+  .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 12vw, 10rem); line-height: 0.88; letter-spacing: 2px; color: var(--white); margin-bottom: 6px; }
+  .hero-name span { color: var(--gold); display: block; }
+  .hero-badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 28px 0 36px; }
+  .hero-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 6px 16px; background: rgba(200,168,75,0.08); border: 1px solid rgba(200,168,75,0.25); color: var(--gold-light); }
+  .hero-badge.red { background: rgba(192,57,43,0.12); border-color: rgba(192,57,43,0.35); color: #f09080; }
+  .hero-event-badge { display: inline-flex; flex-direction: column; background: linear-gradient(135deg, var(--red) 0%, #8B0000 100%); padding: 16px 32px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 100%, 16px 100%); }
+  .hero-event-badge .label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+  .hero-event-badge .event-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; color: #fff; }
+  .hero-stats-strip {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  z-index: 20;
+}
+  .hero-stat { padding: 24px 36px; border-left: 1px solid rgba(200,168,75,0.15); background: rgba(8,8,8,0.8); backdrop-filter: blur(10px); text-align: center; }
+  .hero-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; color: var(--gold); }
+  .hero-stat .lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 3px; color: rgba(200,168,75,0.6); text-transform: uppercase; margin-top: 4px; }
+
+  /* SECTIONS */
+  section { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 6px; color: var(--red); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; }
+  .section-tag::before { content: ''; display: block; width: 28px; height: 2px; background: var(--red); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 2px; color: var(--white); line-height: 1; margin-bottom: 50px; }
+  .section-title .gold { color: var(--gold); }
+  .divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dark), transparent); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-text p { font-size: 1.05rem; line-height: 1.8; color: var(--light); margin-bottom: 20px; }
+  .about-text p strong { color: var(--gold); font-weight: 500; }
+  .fighter-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .spec-item { background: var(--dark2); padding: 18px 22px; border-left: 3px solid transparent; transition: border-color 0.3s; }
+  .spec-item:hover { border-left-color: var(--gold); }
+  .spec-item .spec-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; color: rgba(200,168,75,0.5); text-transform: uppercase; margin-bottom: 6px; }
+  .spec-item .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--white); }
+
+  /* ACHIEVEMENTS */
+  .achievements-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .achievement-item { display: flex; align-items: center; gap: 20px; background: var(--dark2); padding: 18px 26px; border-right: 3px solid var(--gold); position: relative; overflow: hidden; }
+  .achievement-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transition: transform 0.3s; transform-origin: bottom; }
+  .achievement-item:hover::before { transform: scaleY(1); }
+  .achievement-icon { font-size: 1.3rem; width: 38px; text-align: center; flex-shrink: 0; }
+  .achievement-text { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; color: var(--light); }
+  .achievement-text strong { color: var(--gold); font-weight: 600; }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-bottom: 50px; }
+  .stat-card { background: var(--dark2); padding: 36px 24px; text-align: center; position: relative; overflow: hidden; }
+  .stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--gold), var(--red)); transform: scaleX(0); transition: transform 0.3s; }
+  .stat-card:hover::after { transform: scaleX(1); }
+  .stat-card .big-num { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; color: var(--gold); line-height: 1; display: block; }
+  .stat-card .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; color: rgba(200,168,75,0.5); text-transform: uppercase; margin-top: 8px; }
+
+  /* NEXT FIGHT */
+  .next-fight-section { background: var(--dark2); margin: 0; max-width: 100%; padding: 100px 60px; position: relative; overflow: hidden; }
+  .next-fight-section::before { content: 'GLORY'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-family: 'Bebas Neue', sans-serif; font-size: 20rem; color: rgba(200,168,75,0.03); letter-spacing: 20px; pointer-events: none; }
+  .nf-inner { max-width: 1200px; margin: 0 auto; }
+  .nf-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; margin-bottom: 50px; }
+  .fighter-card { background: var(--dark3); padding: 40px; border: 1px solid rgba(200,168,75,0.1); text-align: center; position: relative; }
+  .fighter-card.main { border-color: var(--gold); border-width: 2px; }
+  .fighter-card.main::before { content: 'NAŠE BOJE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; padding: 4px 16px; }
+  .fc-flag { font-size: 2rem; margin-bottom: 12px; }
+  .fc-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: var(--white); }
+  .fc-country { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; color: rgba(200,168,75,0.6); text-transform: uppercase; margin-top: 4px; }
+  .fc-record { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 300; color: var(--light); margin-top: 14px; }
+  .vs-badge { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--red); text-align: center; }
+  .event-info-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .ei-card { background: var(--dark3); padding: 22px 26px; border-top: 2px solid var(--gold); }
+  .ei-card .ei-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 4px; color: rgba(200,168,75,0.5); text-transform: uppercase; margin-bottom: 8px; }
+  .ei-card .ei-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+
+  /* SOCIAL */
+  .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+  .social-col-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 3px; color: rgba(200,168,75,0.5); text-transform: uppercase; margin-bottom: 14px; }
+  .social-platforms { display: flex; flex-direction: column; gap: 3px; }
+  .social-item { display: flex; align-items: center; gap: 18px; background: var(--dark2); padding: 17px 22px; text-decoration: none; color: inherit; transition: background 0.2s; }
+  .social-item:hover { background: var(--dark3); }
+  .social-icon { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; color: #fff; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .si-ig { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+  .si-tt { background: #010101; border: 1px solid #333; }
+  .si-yt { background: #ff0000; }
+  .si-web { background: var(--gold-dark); }
+  .si-glory { background: var(--red); font-size: 0.9rem; font-weight: 900; }
+  .social-details .platform { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .social-details .handle { font-size: 0.83rem; color: rgba(200,168,75,0.65); margin-top: 2px; }
+  .audience-block { background: var(--dark2); padding: 24px 26px; border-top: 2px solid var(--gold); margin-top: 3px; }
+  .audience-block .ab-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; color: rgba(200,168,75,0.5); text-transform: uppercase; margin-bottom: 10px; }
+  .audience-block p { font-size: 0.93rem; color: var(--light); line-height: 1.75; }
+  .audience-block strong { color: var(--white); }
+  .uniqueness-block { background: var(--dark2); padding: 22px 26px; border-left: 3px solid var(--red); margin-top: 3px; }
+  .uniqueness-block .ub-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; color: rgba(192,57,43,0.65); text-transform: uppercase; margin-bottom: 8px; }
+  .uniqueness-block p { font-size: 0.9rem; color: var(--light); line-height: 1.7; }
+  .uniqueness-block strong { color: var(--white); }
+/* HERO */
+  /* PACKAGES */
+  .hero-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url('alba.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.38;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.82) 100%),
+    linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 35%);
+  z-index: 2;
+}
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 10px; }
+  .package-card { background: var(--dark2); padding: 38px 30px; position: relative; overflow: hidden; }
+  .package-card.featured { background: linear-gradient(160deg, #140F00 0%, var(--dark2) 60%); border: 1px solid var(--gold); }
+  .package-card.featured::after { content: 'PREMIUM'; position: absolute; top: -1px; right: -1px; background: var(--gold); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; padding: 5px 14px; }
+  .pkg-tier-dot { width: 13px; height: 13px; border-radius: 50%; margin-bottom: 18px; }
+  .dot-gold { background: radial-gradient(circle, #E8C96A, #8A6A1A); box-shadow: 0 0 14px rgba(200,168,75,0.4); }
+  .dot-silver { background: radial-gradient(circle, #C0C0C0, #606060); }
+  .dot-bronze { background: radial-gradient(circle, #CD7F32, #6B3A1F); }
+  .pkg-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 3px; color: var(--white); margin-bottom: 3px; }
+  .pkg-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; color: rgba(200,168,75,0.4); text-transform: uppercase; margin-bottom: 18px; }
+  .pkg-price-row { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(200,168,75,0.1); }
+  .pkg-price-val { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); letter-spacing: 1px; line-height: 1; }
+  .pkg-price-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; color: rgba(255,255,255,0.28); letter-spacing: 1px; margin-top: 4px; }
+  .pkg-benefits { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .pkg-benefits li { font-size: 0.88rem; color: var(--light); line-height: 1.5; padding-left: 18px; position: relative; }
+  .pkg-benefits li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); }
+  .pkg-benefits li.dim { color: rgba(255,255,255,0.25); }
+  .pkg-benefits li.dim::before { color: rgba(200,168,75,0.2); }
+
+  /* TABLE */
+  .visibility-table { width: 100%; border-collapse: collapse; }
+  .visibility-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; text-align: left; padding: 16px 20px; background: var(--dark3); border-bottom: 2px solid var(--gold-dark); }
+  .visibility-table td { padding: 12px 20px; font-size: 0.88rem; color: var(--light); border-bottom: 1px solid rgba(255,255,255,0.04); background: var(--dark2); }
+  .visibility-table tr:hover td { background: var(--dark3); }
+  .check { color: var(--gold); text-align: center; }
+  .cross { color: rgba(255,255,255,0.15); text-align: center; }
+
+  /* WHY */
+  .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
+  .why-card { background: var(--dark2); padding: 34px; position: relative; overflow: hidden; }
+  .why-card:first-child { grid-column: 1 / -1; background: linear-gradient(135deg, #0D0800 0%, var(--dark2) 50%); border: 1px solid rgba(200,168,75,0.12); }
+  .why-num { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: rgba(200,168,75,0.05); position: absolute; right: 16px; top: 8px; line-height: 1; pointer-events: none; }
+  .why-icon { font-size: 1.4rem; margin-bottom: 12px; }
+  .why-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .why-text { font-size: 0.93rem; color: var(--light); line-height: 1.75; }
+  .why-text strong { color: var(--white); }
+
+  /* CTA */
+  .cta-section { background: var(--dark2); max-width: 100%; padding: 110px 60px; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(192,57,43,0.10) 0%, transparent 60%); }
+  .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .cta-pre { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .cta-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 3px; color: var(--white); line-height: 1; margin-bottom: 22px; }
+  .cta-sub { font-size: 1rem; color: var(--light); line-height: 1.75; margin-bottom: 50px; }
+  .contact-block { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 36px; text-align: left; }
+  .contact-item { background: rgba(8,8,8,0.8); padding: 20px 24px; border-top: 2px solid var(--gold); }
+  .contact-item .c-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 4px; color: rgba(200,168,75,0.5); text-transform: uppercase; margin-bottom: 8px; }
+  .contact-item .c-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); }
+
+  footer { background: var(--black); padding: 34px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(200,168,75,0.08); }
+  footer .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 4px; color: var(--gold-dark); }
+  footer .footer-copy { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; color: rgba(255,255,255,0.15); letter-spacing: 2px; }
+
+  @media (max-width: 900px) {
+    section { padding: 70px 24px; }
+    .nav { padding: 16px 24px; }
+    .hero-content { padding: 0 24px 60px; }
+    .hero-stats-strip { position: relative; flex-wrap: wrap; }
+    .about-grid, .packages-grid, .why-grid, .stats-row, .nf-grid, .social-grid { grid-template-columns: 1fr; }
+    .event-info-cards { grid-template-columns: 1fr 1fr; }
+    .contact-block { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 14px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">UGRINCIC</div>
+  <div class="nav-event">GLORY · Rotterdam · 25.04.2026</div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-accent-line"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Sponzorski Portfolio · Bosna i Hercegovina</div>
+    <div class="hero-name">Albert<span>Ugrincic</span></div>
+
+    <div class="hero-badge-row">
+      <div class="hero-badge">Kapiten Reprezentacije BiH</div>
+      <div class="hero-badge">6× Državni Prvak</div>
+      <div class="hero-badge">GLORY Fighter</div>
+      <div class="hero-badge red">ISKA World Champion</div>
+    </div>
+
+    <div class="hero-event-badge">
+      <span class="label">Naredni nastup</span>
+      <span class="event-name">GLORY · Rotterdam · 25.04.2026</span>
+    </div>
+  </div>
+
+  <div class="hero-stats-strip">
+    <div class="hero-stat"><span class="num">11</span><div class="lbl">Pobjede</div></div>
+    <div class="hero-stat"><span class="num">5</span><div class="lbl">KO</div></div>
+    <div class="hero-stat"><span class="num">6×</span><div class="lbl">Državni prvak</div></div>
+    <div class="hero-stat"><span class="num">25</span><div class="lbl">Godina</div></div>
+    <div class="hero-stat"><span class="num">189</span><div class="lbl">cm</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- O BORCU -->
+<section>
+  <div class="section-tag">Profil Borca</div>
+  <h2 class="section-title">O <span class="gold">Albertu</span></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p><strong>Albert Ugrincic</strong> je 25-godišnji kickboxer, kapiten reprezentacije Bosne i Hercegovine i trenutno jedini bh. borac aktivan na GLORY kickboxing sceni — najprestižnijoj kickboxing organizaciji na svijetu.</p>
+      <p>Šest uzastopnih državnih prvenstava. Srebro na Europskom Prvenstvevu 2024. Top 8 na svijetu. Profesionalni rekord <strong>11 pobjeda, od kojih 5 nokautom</strong> — 45% KO efikasnost koja govori sama za sebe.</p>
+      <p>Pored aktivne borbene karijere, Albert je <strong>licencirani kickboxing trener</strong> koji radi s mlađim borcima i rekreativcima — prenoseći iskustvo stečeno na najvišim međunarodnim pozornicama direktno na trening.</p>
+    </div>
+    <div class="fighter-specs">
+      <div class="spec-item"><div class="spec-label">Kategorija</div><div class="spec-value">Light Heavyweight</div></div>
+      <div class="spec-item"><div class="spec-label">Težinska klasa</div><div class="spec-value">do 95 kg</div></div>
+      <div class="spec-item"><div class="spec-label">Visina</div><div class="spec-value">189 cm</div></div>
+      <div class="spec-item"><div class="spec-label">Rekord</div><div class="spec-value">11W · 4L · 5 KO</div></div>
+      <div class="spec-item"><div class="spec-label">Kapiten</div><div class="spec-value">Reprezentacija BiH</div></div>
+      <div class="spec-item"><div class="spec-label">Državna Prvenstava</div><div class="spec-value">6× uzastopno</div></div>
+      <div class="spec-item"><div class="spec-label">Organizacija</div><div class="spec-value">GLORY Kickboxing</div></div>
+      <div class="spec-item"><div class="spec-label">Licenca</div><div class="spec-value">Kickboxing trener</div></div>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="section-tag">Dostignuća</div>
+  <ul class="achievements-list" style="margin-top:20px;">
+    <li class="achievement-item"><div class="achievement-icon">🇧🇦</div><div class="achievement-text"><strong>Kapiten Reprezentacije BiH</strong> — Aktivan član i kapiten kickboxing reprezentacije Bosne i Hercegovine</div></li>
+    <li class="achievement-item"><div class="achievement-icon">🏆</div><div class="achievement-text"><strong>6× Državni Prvak BiH</strong> — Šest uzastopnih naslova državnog prvaka u kickboxingu</div></li>
+    <li class="achievement-item"><div class="achievement-icon">🥈</div><div class="achievement-text"><strong>Vicešampion Evrope 2024 — Grčka</strong> · WAKO Europsko Prvenstvo, kategorija -91 kg</div></li>
+    <li class="achievement-item"><div class="achievement-icon">🌍</div><div class="achievement-text"><strong>Top 8 na Svijetu — WAKO World Championships 2025, UAE</strong> · kategorija -91 kg</div></li>
+    <li class="achievement-item"><div class="achievement-icon">⚡</div><div class="achievement-text"><strong>5 Nokaut Pobjeda</strong> u profesionalnoj karijeri — 45% KO efikasnost</div></li>
+    <li class="achievement-item"><div class="achievement-icon">🥇</div><div class="achievement-text"><strong>ISKA World Champion 2025</strong> — Titula svjetskog prvaka u kickboxingu (juli 2025)</div></li>
+    <li class="achievement-item"><div class="achievement-icon">📋</div><div class="achievement-text"><strong>Licencirani Kickboxing Trener</strong> — Aktivno prenosi znanje mlađim generacijama boraca</div></li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- KARIJERA U BROJEVIMA -->
+<section>
+  <div class="section-tag">Statistika</div>
+  <h2 class="section-title">Karijera u <span class="gold">Brojevima</span></h2>
+  <div class="stats-row">
+    <div class="stat-card"><span class="big-num">11</span><div class="stat-label">Profesionalne pobjede</div></div>
+    <div class="stat-card"><span class="big-num">45%</span><div class="stat-label">KO efikasnost</div></div>
+    <div class="stat-card"><span class="big-num">6×</span><div class="stat-label">Državni prvak BiH</div></div>
+    <div class="stat-card"><span class="big-num">TOP8</span><div class="stat-label">Rang na svijetu (WAKO)</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+    <div style="background:linear-gradient(135deg,#100D00,var(--dark2));padding:28px 32px;border-top:2px solid var(--gold);">
+      <div style="font-family:'Barlow Condensed';font-size:0.65rem;font-weight:700;letter-spacing:3px;color:rgba(200,168,75,0.5);text-transform:uppercase;margin-bottom:10px;">Novembar 2025 · UAE</div>
+      <div style="font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:1px;color:var(--gold);margin-bottom:8px;">🌍 WAKO World Championships — Top 8</div>
+      <div style="font-size:0.9rem;color:var(--light);line-height:1.75;">Treće uzastopno nastupanje na Svjetskim Prvenstvima. Potvrda mjesta u svjetskoj eliti, kategorija -91 kg.</div>
+    </div>
+    <div style="background:var(--dark2);padding:28px 32px;border-top:2px solid var(--gold);">
+      <div style="font-family:'Barlow Condensed';font-size:0.65rem;font-weight:700;letter-spacing:3px;color:rgba(200,168,75,0.5);text-transform:uppercase;margin-bottom:10px;">Novembar 2024 · Grčka</div>
+      <div style="font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:1px;color:var(--white);margin-bottom:8px;">🥈 Vicešampion Evrope — WAKO EP</div>
+      <div style="font-size:0.9rem;color:var(--light);line-height:1.75;">3 pobjede na turniru, srebro na Europskom Prvenstvevu. Kategorija -91 kg, Atina.</div>
+    </div>
+    <div style="background:var(--dark2);padding:28px 32px;border-top:2px solid rgba(200,168,75,0.2);">
+      <div style="font-family:'Barlow Condensed';font-size:0.65rem;font-weight:700;letter-spacing:3px;color:rgba(200,168,75,0.5);text-transform:uppercase;margin-bottom:10px;">Juli 2025 · Njemačka</div>
+      <div style="font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:1px;color:var(--white);margin-bottom:8px;">ISKA World Champion</div>
+      <div style="font-size:0.9rem;color:var(--light);line-height:1.75;">SKA World Champion Belt. Juli 2025.</div>
+    </div>
+    <div style="background:var(--dark2);padding:28px 32px;border-top:2px solid rgba(200,168,75,0.2);">
+      <div style="font-family:'Barlow Condensed';font-size:0.65rem;font-weight:700;letter-spacing:3px;color:rgba(200,168,75,0.5);text-transform:uppercase;margin-bottom:10px;">2019 — Danas</div>
+      <div style="font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:1px;color:var(--white);margin-bottom:8px;">6× Državni Prvak BiH — Zaredom</div>
+      <div style="font-size:0.9rem;color:var(--light);line-height:1.75;">Šest uzastopnih državnih naslova. Potpuna dominacija na domaćoj sceni, bez poraza u finalima.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NAREDNI MEČ -->
+<section class="next-fight-section">
+  <div class="nf-inner">
+    <div class="section-tag">Predstojeći Nastup</div>
+    <h2 class="section-title">GLORY <span class="gold">Rotterdam</span></h2>
+    <div class="nf-grid">
+      <div class="fighter-card main">
+        <div class="fc-flag">🇧🇦</div>
+        <div class="fc-name">Albert Ugrincic</div>
+        <div class="fc-country">Bosna i Hercegovina</div>
+        <div class="fc-record">11W · 4L · 5 KO</div>
+      </div>
+      <div>
+        <div class="vs-badge">VS</div>
+        <div style="text-align:center;margin-top:10px;font-family:'Barlow Condensed';font-size:0.7rem;letter-spacing:3px;color:rgba(200,168,75,0.4);text-transform:uppercase;">25. April 2026</div>
+      </div>
+      <div class="fighter-card">
+        <div class="fc-flag">🌍</div>
+        <div class="fc-name">TBA</div>
+        <div class="fc-country">Protivnik — uskoro</div>
+        <div class="fc-record">GLORY Roster</div>
+        <a href="https://glorykickboxing.com/fighters/albert-ugrincic" target="_blank" style="display:inline-block;margin-top:18px;font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:9px 22px;background:var(--red);color:#fff;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#a93226'" onmouseout="this.style.background='var(--red)'">GLORY Profil →</a>
+      </div>
+    </div>
+    <div class="event-info-cards">
+      <div class="ei-card"><div class="ei-label">Datum</div><div class="ei-value">25. April 2026</div></div>
+      <div class="ei-card"><div class="ei-label">Lokacija</div><div class="ei-value">Rotterdam, NL 🇳🇱</div></div>
+      <div class="ei-card"><div class="ei-label">Besplatni stream</div><div class="ei-value">GLORY YouTube</div></div>
+      <div class="ei-card"><div class="ei-label">Plaćene platforme</div><div class="ei-value">DAZN i ostale</div></div>
+    </div>
+    <div style="margin-top:36px;background:var(--dark3);padding:30px 34px;border-left:4px solid var(--gold);">
+      <div style="font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">Doseg eventa i vidljivost sponzora</div>
+      <p style="font-size:0.93rem;color:var(--light);line-height:1.8;max-width:820px;">
+        GLORY Rotterdam biće streamovan <strong style="color:var(--white);">besplatno na YouTube-u</strong> — čime se postiže maksimalan organski doseg. Stream funkcioniše i kao direktan poziv na pretplatu na <strong style="color:var(--white);">DAZN</strong> i ostale plaćene platforme. Borbeni klipovi ostvaruju <strong style="color:var(--white);">najveći reach u danima oko i nakon eventa</strong> — vaš logo na dresu vidljiv je u svakom objavljenom materijalu koji kruži danima poslije borbe, bez ikakvih dodatnih troškova.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DIGITALNA PRISUTNOST -->
+<section>
+  <div class="section-tag">Digitalna Prisutnost</div>
+  <h2 class="section-title">Platforme i <span class="gold">Publika</span></h2>
+
+  <div style="background:linear-gradient(135deg,rgba(192,57,43,0.07),var(--dark2));border:1px solid rgba(192,57,43,0.18);padding:32px 36px;margin-bottom:50px;">
+    <div style="font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">Aktivan na svim platformama</div>
+    <p style="font-size:0.93rem;color:var(--light);line-height:1.8;max-width:820px;">Albert redovno objavljuje sadržaj na Instagramu, TikToku i YouTubeu — treninzi, borbe, backstage materijal i lični sadržaj koji gradi autentičan odnos s publikom. Sponzori dobivaju vidljivost koja živi duže od samog eventa — svaki post, reel i klip nosi vaš brend dalje.</p>
+  </div>
+
+  <div class="social-grid">
+    <div>
+      <div class="social-col-label">Društvene Mreže</div>
+      <div class="social-platforms">
+        <a class="social-item" href="https://www.instagram.com/najjaki/" target="_blank">
+          <div class="social-icon si-ig">📸</div>
+          <div class="social-details"><div class="platform">Instagram</div><div class="handle">@najjaki</div></div>
+        </a>
+        <a class="social-item" href="https://www.tiktok.com/@najjaki1" target="_blank">
+          <div class="social-icon si-tt">♪</div>
+          <div class="social-details"><div class="platform">TikTok</div><div class="handle">@najjaki</div></div>
+        </a>
+        <a class="social-item" href="https://youtube.com/@albertugrincic" target="_blank">
+          <div class="social-icon si-yt">▶</div>
+          <div class="social-details"><div class="platform">YouTube</div><div class="handle">@albertugrincic</div></div>
+        </a>
+        <a class="social-item" href="https://albert.ba/" target="_blank">
+          <div class="social-icon si-web">🌐</div>
+          <div class="social-details"><div class="platform">Zvanični Website</div><div class="handle">albert.ba</div></div>
+        </a>
+        <a class="social-item" href="https://glorykickboxing.com/fighters/albert-ugrincic" target="_blank">
+          <div class="social-icon si-glory">G</div>
+          <div class="social-details"><div class="platform">GLORY Kickboxing Profil</div><div class="handle">glorykickboxing.com</div></div>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="social-col-label">Ciljna Publika</div>
+      <div class="audience-block">
+        <div class="ab-label">Ko prati Alberta</div>
+        <p>Pretežno muška publika <strong>18–35 godina</strong>, zainteresovana za borilačke sportove, fitness i takmičarski sport. Geografski: BiH, regija, internacionalna GLORY zajednica. Publika koja kupuje, prati i dijeli sadržaj.</p>
+      </div>
+      <div class="uniqueness-block">
+        <div class="ub-label">Jedinstvenost pozicije</div>
+        <p>Albert je trenutno <strong>jedini borac iz Bosne i Hercegovine aktivan na GLORY platformi</strong>. Svaki sponzor postaje dio historije bh. sporta — pred internacionalnom publikom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SPONZORSKI PAKETI -->
+<section>
+  <div class="section-tag">Sponzorske Mogućnosti</div>
+  <h2 class="section-title">Paketi <span class="gold">Saradnje</span></h2>
+
+  <div class="packages-grid">
+    <div class="package-card featured">
+      <div class="pkg-tier-dot dot-gold"></div>
+      <div class="pkg-name">Zlatni Paket</div>
+      <div class="pkg-subtitle">Maks. 2 sponzora · Ekskluzivna pozicija</div>
+      <div class="pkg-price-row">
+        <div class="pkg-price-val">Po dogovoru</div>
+        <div class="pkg-price-note">Individualna ponuda · Kontaktirajte nas</div>
+      </div>
+      <ul class="pkg-benefits">
+        <li><strong>Logo na dresu</strong> koji se nosi na GLORY eventu — prominentna pozicija, vidljiva u streamu</li>
+        <li>Logo na ogrtaču za ulazak u ring</li>
+        <li>Logo na zvaničnoj majici i trenirci</li>
+        <li>Min. 4 posvećena posta — Instagram, TikTok, YouTube</li>
+        <li>Integracija brenda u video sadržaj (YouTube / Reels)</li>
+        <li>Pominjanje u medijskim nastupima i press materijalu</li>
+        <li>Pravo korišćenja borbenih fotografija za marketing</li>
+        <li>Tag u svim post-borba objavama</li>
+        <li>Backstage pristup na GLORY eventu u Rotterdamu</li>
+      </ul>
+    </div>
+    <div class="package-card">
+      <div class="pkg-tier-dot dot-silver"></div>
+      <div class="pkg-name">Srebrni Paket</div>
+      <div class="pkg-subtitle">Prepoznatljivost na eventu</div>
+      <div class="pkg-price-row">
+        <div class="pkg-price-val">od 1.500 KM</div>
+        <div class="pkg-price-note">Jednokratno · Event period</div>
+      </div>
+      <ul class="pkg-benefits">
+        <li>Logo na ogrtaču za ulazak u ring</li>
+        <li>Logo na majici i/ili trenirci</li>
+        <li>2–3 posvećena posta — Instagram i TikTok</li>
+        <li>Pominjanje u YouTube video sadržaju</li>
+        <li>Vidljivost na GLORY YouTube i DAZN streamu</li>
+        <li>Pravo korišćenja borbenih fotografija</li>
+        <li>Tag i mention u post-borba objavama</li>
+        <li><strong>Logo na dresu</strong> koji se nosi na GLORY eventu</li>
+      </ul>
+    </div>
+    <div class="package-card">
+      <div class="pkg-tier-dot dot-bronze"></div>
+      <div class="pkg-name">Bronzani Paket</div>
+      <div class="pkg-subtitle">Digitalna prisutnost</div>
+      <div class="pkg-price-row">
+        <div class="pkg-price-val">od 500 KM</div>
+        <div class="pkg-price-note">Jednokratno · Event period</div>
+      </div>
+      <ul class="pkg-benefits">
+        <li>Logo na majici (trening / pre-event materijal)</li>
+        <li>1–2 sponzorisana posta — Instagram ili TikTok</li>
+        <li>Tag i mention u post-borba sadržajima</li>
+        <li>Vidljivost kroz GLORY YouTube stream</li>
+        <li><strong>Logo na dresu</strong> koji se nosi na GLORY eventu</li>
+        <li class="dim">Ring walk ogrtač — nije uključen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;overflow-x:auto;">
+    <table class="visibility-table">
+      <thead>
+        <tr>
+          <th style="width:42%;">Beneficija</th>
+          <th style="text-align:center;width:19%;">🥇 Zlatni</th>
+          <th style="text-align:center;width:19%;">🥈 Srebrni</th>
+          <th style="text-align:center;width:20%;">🥉 Bronzani</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Logo na dresu — GLORY event</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Logo na ogrtaču (ring walk)</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
+        <tr><td>Logo na majici / trenirci</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>SM sadržaj (4+ posta)</td><td class="check">✓</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>SM sadržaj (2–3 posta)</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
+        <tr><td>SM post (1–2)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>YouTube video integracija</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
+        <tr><td>Mediji / press konferencije</td><td class="check">✓</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Vidljivost — GLORY YouTube / DAZN</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Borbene fotografije za marketing</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
+        <tr><td>Backstage pristup (Rotterdam)</td><td class="check">✓</td><td class="cross">—</td><td class="cross">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:10px;background:var(--dark2);padding:18px 26px;border-left:3px solid rgba(200,168,75,0.25);">
+    <div style="font-size:0.88rem;color:rgba(200,168,75,0.55);">Svi paketi otvoreni za individualni dogovor. Specifični zahtjevi ili nestandardne forme saradnje — kontaktirajte direktno.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ZAŠTO ULAGATI -->
+<section>
+  <div class="section-tag">Investicija u Uspjeh</div>
+  <h2 class="section-title">Zašto <span class="gold">Sada</span></h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div class="why-icon">📺</div>
+      <div class="why-title">GLORY YouTube stream — besplatan, globalan</div>
+      <div class="why-text">Event se stream-a besplatno na GLORY YouTube kanalu s milionima pretplatnika i istovremeno služi kao hook za <strong>DAZN</strong> i ostale plaćene platforme. Logoi na dresu i ogrtaču vidljivi su u svakom thumbnail-u, highlightu i klipу koji kruži danima — <strong>reach nije jednokratan</strong>.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div class="why-icon">🚀</div>
+      <div class="why-title">Ulazak u pravo vrijeme</div>
+      <div class="why-text">Albert ima 25 godina, srebro s Europskog Prvenstvevu, Top 8 na svijetu i 11 profesionalnih pobjeda. <strong>Cijena saradnje danas je frakcija</strong> onoga što će biti u narednim godinama. Ulaganje u borca na uzlaznoj putanji — to je sportski marketing koji se isplati.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div class="why-icon">🇧🇦</div>
+      <div class="why-title">Jedini borac iz BiH na GLORY sceni</div>
+      <div class="why-text">Albert je trenutno <strong>jedini aktivni GLORY borac iz Bosne i Hercegovine</strong>. Svaka kompanija koja ga sponzorira ulazi u historiju bh. sporta pred internacionalnom publikom — to nije samo marketing, to je identitet.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <div class="why-icon">📲</div>
+      <div class="why-title">Sadržaj koji traje nakon borbe</div>
+      <div class="why-text">Klipovi i highlights GLORY borbi ostvaruju <strong>najveći reach u danima oko i poslije eventa</strong> — i nastavljaju da kruže tjednima. Vaš logo prisutan je u svakom od tih materijala organski, bez ikakvih dodatnih troškova ili akcija s vaše strane.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-pre">Poziv na Saradnju</div>
+    <h2 class="cta-heading">Postanite Dio<br>Ove Priče</h2>
+    <p class="cta-sub">Albert Ugrincic nastupa za Bosnu i Hercegovinu 25. aprila 2026. u Rotterdamu. Kao jedini bh. borac na GLORY sceni, svaki sponzor koji stoji uz njega postaje dio nečega što prelazi okvire jednog meča.</p>
+    <div class="contact-block">
+      <div class="contact-item"><div class="c-label">Website</div><div class="c-value">albert.ba</div></div>
+      <div class="contact-item"><div class="c-label">Instagram / TikTok</div><div class="c-value">@najjaki</div></div>
+      <div class="contact-item"><div class="c-label">YouTube</div><div class="c-value">@albertugrincic</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">ALBERT UGRINCIC · GLORY ROTTERDAM · 25.04.2026</div>
+  <div class="footer-copy">© 2026 · Sponzorski Portfolio · Povjerljivo</div>
+</footer>
+
+</body>
+</html>
+
